@@ -1,4 +1,4 @@
-package com.example.routeapp.network
+package com.example.routeapp.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,3 +14,4 @@ object RetrofitInstance {
             .create(ApiService::class.java)
     }
 }
+

@@ -12,6 +12,12 @@ val GreenSuccess = Color(color = 0xFF388E3C)
 val BluePrimary = Color(color = 0xFF1976D2)
 val OnErrorWhite = Color(color = 0xFFFFFFFF)
 
+
+val BlueBackground = Color(0xFF004182)
+val HintGray = Color(0xB3000000)
+val FieldTitle = Color(0xFF06004F)
+val White = Color.White
+
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
