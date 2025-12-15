@@ -1,6 +1,7 @@
 package com.example.routeapp.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -36,8 +37,9 @@ fun RegisterScreen(
     ) {
 
         Card(
-            modifier = Modifier.width(300.dp),
-            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxSize()
+                .padding(16.dp),
+            shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = RouteBlue)
         ) {
 
@@ -94,7 +96,8 @@ fun RegisterScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = White)
                 ) {
-                    Text("Sign up", color = RouteBlue)
+                    Text("Sign up", color = RouteBlue,
+                        modifier = Modifier.clickable{navController.navigate("account")})
                 }
             }
         }

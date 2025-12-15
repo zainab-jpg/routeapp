@@ -37,8 +37,9 @@ fun SigninScreen(
     ) {
 
         Card(
-            modifier = Modifier.width(300.dp),
-            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxSize()
+                .padding(16.dp),
+            shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = RouteBlue)
         ) {
 
