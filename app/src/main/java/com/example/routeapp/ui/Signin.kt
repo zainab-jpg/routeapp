@@ -115,7 +115,7 @@ fun SigninScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = White)
                 ) {
-                    Text("Login", color = RouteBlue)
+                    Text("Login", color = RouteBlue,modifier = Modifier.clickable{navController.navigate("account")})
                 }
 
                 Spacer(Modifier.height(8.dp))
