@@ -66,7 +66,7 @@ fun AccountTab(navController: NavController) {
             )
 
             Text(
-                text = "mohamed.N@gmail.com",
+                text = "",
                 color = Color.Gray,
                 fontSize = MaterialTheme.typography.bodySmall.fontSize
             )
