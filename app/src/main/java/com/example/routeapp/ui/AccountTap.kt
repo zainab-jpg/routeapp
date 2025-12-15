@@ -73,11 +73,11 @@ fun AccountTab(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            AccountField("Your full name", "Mohamed Mohamed Nabil")
-            AccountField("Your E-mail", "mohamed.N@gmail.com")
-            AccountField("Your password", "**************")
-            AccountField("Your mobile number", "01122118855")
-            AccountField("Your Address", "6th October, street 11...")
+            AccountField("Your full name", "")
+            AccountField("Your E-mail", "")
+            AccountField("Your password", "")
+            AccountField("Your mobile number", "")
+            AccountField("Your Address", "")
         }
     }
 }
