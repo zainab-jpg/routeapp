@@ -6,6 +6,8 @@ val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
 
+val RouteBlue = Color(0xFF1E4E8C)
+val ScreenBg = Color(0xFF1F1F1F)
 
 
 val BlueBackground = Color(0xFF004182)

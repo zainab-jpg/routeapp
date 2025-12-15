@@ -1,22 +1,22 @@
 package com.example.routeapp.ui
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,11 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.routeapp.data.DataStoreManager
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.selects.select
 
 @Composable
-fun AccountTab() {
+fun AccountTab(navController: NavController) {
 
     val context = LocalContext.current
     val dataStore = remember { DataStoreManager(context) }
@@ -99,10 +101,8 @@ fun AccountField(title: String, value: String) {
             modifier = Modifier.fillMaxWidth(),
             enabled = false,
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "edit"
-                )
+                Text(text="Edit", color=Color(0xFF06004F))
+
             },
             shape = RoundedCornerShape(12.dp)
         )
@@ -120,22 +120,33 @@ fun BottomBar() {
         NavigationBarItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Home, null, tint = Color.White) },
+            icon = { BottomCircle(selected=false) },
             label = { Text("Home", color = Color.White) }
         )
 
         NavigationBarItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Favorite, null, tint = Color.White) },
+            icon = { BottomCircle(selected=false) },
             label = { Text("Wishlist", color = Color.White) }
         )
 
         NavigationBarItem(
             selected = true,
             onClick = {},
-            icon = { Icon(Icons.Default.Person, null, tint = Color.White) },
+            icon = { BottomCircle(selected=false) },
             label = { Text("Account", color = Color.White) }
         )
     }
 }
+
+@Composable
+fun BottomCircle(selected: Boolean) {
+    Surface(
+        modifier = Modifier.size(28.dp),
+        shape = CircleShape,
+        color = if (selected) Color.White else Color.Transparent,
+    ){}
+}
+
+

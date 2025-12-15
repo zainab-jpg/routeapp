@@ -20,7 +20,7 @@ fun NavGraph() {
         }
 
         composable("account") {
-            AccountTab()
+            AccountTab(navController)
         }
     }
 }

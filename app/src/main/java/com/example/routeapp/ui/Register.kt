@@ -7,11 +7,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.routeapp.ui.components.AuthField
+import com.example.routeapp.ui.theme.RouteBlue
+import com.example.routeapp.ui.theme.ScreenBg
+import com.example.routeapp.ui.theme.White
 import com.example.routeapp.viewmodel.AuthViewModel
 
 @Composable
@@ -24,55 +28,75 @@ fun RegisterScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF004182))
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(ScreenBg),
+        contentAlignment = Alignment.Center
     ) {
 
-        Text("Register", color = Color.White, style = MaterialTheme.typography.headlineMedium)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(name, { name = it }, label = { Text("Full Name") },
-            shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth())
-
-        OutlinedTextField(phone, { phone = it }, label = { Text("Mobile") },
-            shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth())
-
-        OutlinedTextField(email, { email = it }, label = { Text("Email") },
-            shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth())
-
-        OutlinedTextField(
-            password,
-            { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
-            onClick = {
-                viewModel.signup(
-                    name,
-                    email,
-                    password,
-                    phone,
-                    onSuccess = {
-                        navController.navigate("signin")
-                    },
-                    onError = {}
-                )
-            }
+        Card(
+            modifier = Modifier.width(300.dp),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(containerColor = RouteBlue)
         ) {
-            Text("Create Account")
+
+            Column(
+                modifier = Modifier.padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    "Route",
+                    color = White,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(Modifier.height(16.dp))
+
+
+
+                AuthField("Full Name", "enter your full name", name,
+                    onValueChange ={newValue -> name=newValue} )
+
+                AuthField("Mobile Number", "enter your mobile no.", phone,
+                    onValueChange = {phone=it})
+
+                AuthField("E-mail address", "enter your email address", email,
+                    onValueChange = {email=it})
+                AuthField(
+                    "Password",
+                    "enter your password",
+                    password,
+
+                    onValueChange = {password=it},
+                    isPassword = true)
+
+
+                Spacer(Modifier.height(12.dp))
+
+                Button(
+                    onClick = {
+
+                        viewModel.signup(
+                            name,
+                            email,
+                            password,
+                            phone,
+                            onSuccess = {
+                                navController.navigate("signin")
+                            },
+                            onError = {}
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = White)
+                ) {
+                    Text("Sign up", color = RouteBlue)
+                }
+            }
         }
     }
 }
