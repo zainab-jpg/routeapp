@@ -1,5 +1,5 @@
 package com.example.routeapp.ui
-
+//git
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,6 +21,7 @@ import com.example.routeapp.ui.theme.ScreenBg
 import com.example.routeapp.ui.theme.White
 import com.example.routeapp.viewmodel.AuthViewModel
 
+
 @Composable
 fun SigninScreen(
     navController: NavController,
@@ -28,6 +29,7 @@ fun SigninScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -43,96 +45,106 @@ fun SigninScreen(
             colors = CardDefaults.cardColors(containerColor = RouteBlue)
         ) {
 
-            Column(
-                modifier = Modifier.padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
 
-
-                Text(
-                    "Route",
-                    color = White,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(Modifier.height(12.dp))
-
-                Text("Welcome Back To Route", color = White)
-                Text(
-                    "Please sign in with your mail",
-                    color = White.copy(alpha = 0.7f),
-                    fontSize = 12.sp
-                )
-
-                Spacer(Modifier.height(16.dp))
-
-
-                AuthField(
-                    label = "User Name",
-                    hint = "enter your name",
-                    value = email,
-                    onValueChange = { email = it }
-                )
-
-
-                AuthField(
-                    label = "Password",
-                    hint = "enter your password",
-                    value = password,
-                    onValueChange = { password = it },
-                    isPassword = true
-                )
-
-                Text(
-                    "Forgot password",
-                    color = White,
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .clickable {
-
-                        }
-                )
-
-                Spacer(Modifier.height(12.dp))
-
-                Button(
-                    onClick = {
-
-                        viewModel.signin(
-                            email,
-                            password,
-                            onSuccess = {
-                                navController.navigate("account") {
-                                    popUpTo("signin") { inclusive = true }
-                                }
-                            },
-                            onError = {}
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = White)
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Login", color = RouteBlue,modifier = Modifier.clickable{navController.navigate("account")})
-                }
 
-                Spacer(Modifier.height(8.dp))
 
-                Row {
-                    Text("Don't have an account? ", color = White, fontSize = 12.sp)
                     Text(
-                        "Create Account",
+                        "Route",
                         color = White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        modifier = Modifier.clickable {
-                            navController.navigate("register")
-                        }
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold
                     )
+
+                    Spacer(Modifier.height(12.dp))
+
+                    Text("Welcome Back To Route", color = White)
+                    Text(
+                        "Please sign in with your mail",
+                        color = White.copy(alpha = 0.7f),
+                        fontSize = 12.sp
+                    )
+
+                    Spacer(Modifier.height(16.dp))
+
+
+                    AuthField(
+                        label = "User Name",
+                        hint = "enter your name",
+                        value = email,
+                        onValueChange = { email = it }
+                    )
+
+
+                    AuthField(
+                        label = "Password",
+                        hint = "enter your password",
+                        value = password,
+                        onValueChange = { password = it },
+                        isPassword = true
+                    )
+
+                    Text(
+                        "Forgot password",
+                        color = White,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .clickable {
+
+                            }
+                    )
+
+                    Spacer(Modifier.height(12.dp))
+                    if (showError){Text(text = "Please fill all fields",
+                    color = Color.Red)}
+
+                    Button(
+                        onClick = {
+
+                            showError=email.isBlank() || password.isBlank()
+                            if(!showError)
+
+                            viewModel.signin(
+                                email,
+                                password,
+                                onSuccess = {
+                                    navController.navigate("account") {
+                                        popUpTo("signin") { inclusive = true }
+                                    }
+                                },
+                                onError = {
+                                }
+                            )
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = White)
+                    ) {
+                        Text("Login", color = RouteBlue)
+                    }
+
+
+                    Spacer(Modifier.height(8.dp))
+
+                    Row {
+                        Text("Don't have an account? ", color = White, fontSize = 12.sp)
+                        Text(
+                            "Create Account",
+                            color = White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            modifier = Modifier.clickable {
+                                navController.navigate("register")
+                            }
+                        )
+                    }
                 }
             }
         }
     }
-}
+
+

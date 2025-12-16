@@ -1,13 +1,13 @@
 package com.example.routeapp.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +28,7 @@ fun RegisterScreen(
     var phone by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -37,9 +38,8 @@ fun RegisterScreen(
     ) {
 
         Card(
-            modifier = Modifier.fillMaxSize()
-                .padding(16.dp),
-            shape = RoundedCornerShape(24.dp),
+            modifier = Modifier.width(300.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = RouteBlue)
         ) {
 
@@ -78,26 +78,31 @@ fun RegisterScreen(
 
                 Spacer(Modifier.height(12.dp))
 
+                if (showError){Text(text = "Please fill all fields",
+                    color = Color.Red)}
+
                 Button(
                     onClick = {
+                        showError=name.isBlank()||email.isBlank()||password.isBlank()||phone.isBlank()
+                        if(!showError)
 
-                        viewModel.signup(
-                            name,
-                            email,
-                            password,
-                            phone,
-                            onSuccess = {
-                                navController.navigate("signin")
-                            },
-                            onError = {}
-                        )
+                            viewModel.signup(
+                                name,
+                                email,
+                                password,
+                                phone,
+                                onSuccess = {
+                                    navController.navigate("signin")
+                                },
+                                onError = {}
+
+                            )
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = White)
-                ) {
-                    Text("Sign up", color = RouteBlue,
-                        modifier = Modifier.clickable{navController.navigate("account")})
+                ){
+                    Text("Sign up", color = RouteBlue)
                 }
             }
         }
